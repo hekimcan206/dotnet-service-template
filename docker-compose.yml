@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
 
   aspire-dashboard:
-    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.0
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.6
     profiles: ["observability"]
     environment:
       # Local-only convenience; never expose an unsecured dashboard beyond localhost.
