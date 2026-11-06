@@ -23,7 +23,7 @@ Please include the affected version or commit, the steps to reproduce, and the i
 | Secrets | None in the repository. Compose defaults are for local development only and can be overridden through `.env` (see `.env.example`) |
 | Errors | ProblemDetails responses never include exception details. Health responses omit failure descriptions |
 | SQL | EF Core parameterises all queries. No string-built SQL |
-| Supply chain | Centrally pinned package versions (`Directory.Packages.props`), updated by hand; CI fails on known-vulnerable direct or transitive packages (`dotnet list package --vulnerable --include-transitive`); CodeQL `security-and-quality` on every push and weekly |
+| Supply chain | Centrally pinned package versions (`Directory.Packages.props`), updated by hand; CI fails on known-vulnerable direct or transitive packages (`dotnet list package --vulnerable --include-transitive`); CodeQL `security-and-quality` on every push and weekly. Private repositories without GitHub Code Security keep the SARIF as a workflow artifact; public repositories upload it to code scanning |
 | API docs | OpenAPI/Scalar is off unless `OpenApi:Enabled=true` |
 
 Not included, and to be added per service: authentication/authorisation, rate limiting, CORS policy
