@@ -1,0 +1,48 @@
+# Only in the template repository (excluded from generated projects): proves that
+# `dotnet new hekim-service` produces a solution that restores, builds and passes its unit tests.
+name: template
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  instantiate:
+    name: instantiate & build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Install template from source
+        run: dotnet new install ./
+
+      - name: Instantiate with a dotted name
+        run: dotnet new hekim-service -n Acme.Orders -o "$RUNNER_TEMP/acme-orders"
+
+      - name: No template identifiers left behind
+        working-directory: ${{ runner.temp }}/acme-orders
+        run: |
+          if grep -rIl -e 'ServiceTemplate' -e 'servicetemplate' .; then
+            echo "::error::Unreplaced template identifiers found"
+            exit 1
+          fi
+
+      - name: Build and unit-test the generated solution
+        working-directory: ${{ runner.temp }}/acme-orders
+        run: |
+          dotnet build --configuration Release
+          dotnet test --no-build --configuration Release --project tests/Acme.Orders.UnitTests/Acme.Orders.UnitTests.csproj

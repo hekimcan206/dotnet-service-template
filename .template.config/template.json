@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "hekimcan206",
+  "classifications": ["Web", "WebAPI", "Service", "Cloud"],
+  "identity": "Hekimcan206.DotnetServiceTemplate",
+  "groupIdentity": "Hekimcan206.DotnetServiceTemplate",
+  "name": "Hekim .NET 10 service",
+  "description": "Production-shaped .NET 10 minimal API: PostgreSQL (EF Core) with least-privilege roles, health checks, ProblemDetails, versioned OpenAPI + Scalar, Serilog JSON, OpenTelemetry, Testcontainers tests, chiseled non-root container, docker compose and GitHub workflows.",
+  "shortName": "hekim-service",
+  "sourceName": "ServiceTemplate",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "symbols": {
+    "apiPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "defaultValue": "58080",
+      "replaces": "58080",
+      "description": "Host port docker compose publishes the API on."
+    },
+    "postgresPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "defaultValue": "58432",
+      "replaces": "58432",
+      "description": "Loopback host port docker compose publishes PostgreSQL on (used by appsettings.Development.json)."
+    },
+    "slug": {
+      "type": "derived",
+      "valueSource": "name",
+      "valueTransform": "kebabLower",
+      "replaces": "servicetemplate",
+      "description": "Lower-case, dot-free name used for docker compose project, image and database names."
+    }
+  },
+  "forms": {
+    "kebabLower": {
+      "identifier": "chain",
+      "steps": ["lowerCaseInvariant", "dotsToDashes"]
+    },
+    "dotsToDashes": {
+      "identifier": "replace",
+      "pattern": "[^a-z0-9-]",
+      "replacement": "-"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".git/**",
+        ".vs/**",
+        ".idea/**",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        "**/TestResults/**",
+        "**/*.user",
+        ".template.config/**",
+        ".github/workflows/template.yml",
+        ".github/ISSUE_TEMPLATE/config.yml",
+        "README.md",
+        "CHANGELOG.md"
+      ]
+    },
+    {
+      "source": ".template.config/seed/",
+      "target": "./"
+    }
+  ]
+}
