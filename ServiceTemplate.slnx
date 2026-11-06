@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ServiceTemplate.Api/ServiceTemplate.Api.csproj" />
+  </Folder>
+</Solution>
