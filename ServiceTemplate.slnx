@@ -3,6 +3,7 @@
     <Project Path="src/ServiceTemplate.Api/ServiceTemplate.Api.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/ServiceTemplate.IntegrationTests/ServiceTemplate.IntegrationTests.csproj" />
     <Project Path="tests/ServiceTemplate.UnitTests/ServiceTemplate.UnitTests.csproj" />
   </Folder>
 </Solution>
